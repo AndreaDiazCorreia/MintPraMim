@@ -1,6 +1,6 @@
 {
-  "name": "MintParaMim",
-  "short_name": "MintParaMim",
+  "name": "MintPraMim",
+  "short_name": "MintPraMim",
   "description": "Connect and find people with similar interests",
   "start_url": "/",
   "display": "standalone",

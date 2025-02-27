@@ -15,7 +15,7 @@ export default function Home() {
           <Sparkles className="w-12 h-12 text-white" />
         </div>
         <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-purple-400 mb-2">
-          MintParaMim
+          MintPraMim
         </h1>
         <p className="text-muted-foreground max-w-md mx-auto">
           Connect with people who share your interests and create meaningful connections
@@ -83,7 +83,7 @@ export default function Home() {
               <Sparkles className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h3 className="font-semibold">Add MintParaMim to Home Screen</h3>
+              <h3 className="font-semibold">Add MintPraMim to Home Screen</h3>
               <p className="text-sm text-muted-foreground">For the best experience</p>
             </div>
           </div>

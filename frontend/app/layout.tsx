@@ -7,7 +7,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'MintParaMim - Connect with Similar Interests',
+  title: 'MintPraMim - Connect with Similar Interests',
   description: 'Find and connect with people who share your interests',
   manifest: '/manifest.json',
   themeColor: '#8a70d6',
@@ -15,15 +15,15 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'MintParaMim'
+    title: 'MintPraMim'
   },
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://mintparamim.com',
-    title: 'MintParaMim - Connect with Similar Interests',
+    url: 'https://mintpramim.com',
+    title: 'MintPraMim - Connect with Similar Interests',
     description: 'Find and connect with people who share your interests',
-    siteName: 'MintParaMim',
+    siteName: 'MintPraMim',
   },
 };
 

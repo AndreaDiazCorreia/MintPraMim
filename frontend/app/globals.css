@@ -1,24 +1,207 @@
-@import "tailwindcss";
-
-@theme {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 270 50% 64%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 270 50% 95%;
+    --secondary-foreground: 270 50% 64%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 270 50% 95%;
+    --accent-foreground: 270 50% 64%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 270 50% 90%;
+    --input: 270 50% 90%;
+    --ring: 270 50% 64%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 1rem;
+  }
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 270 50% 64%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 270 50% 64%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.bg-grid-pattern {
+  background-image: linear-gradient(to right, rgba(138, 112, 214, 0.05) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(138, 112, 214, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Custom styles for the app */
+.blob-shape {
+  border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
+}
+
+.badge-circle {
+  @apply rounded-full flex items-center justify-center;
+  box-shadow: 0 4px 12px rgba(138, 112, 214, 0.15);
+}
+
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(138, 112, 214, 0.2);
+}
+
+.pwa-install-banner {
+  @apply fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 p-4 shadow-lg rounded-t-2xl border-t border-purple-200 z-50;
+  animation: slide-up 0.3s ease-out;
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Swipe card animations */
+.swipe-card {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 20px rgba(138, 112, 214, 0.15);
+}
+
+.swipe-card-container {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  height: 500px;
+  margin: 0 auto;
+}
+
+/* Match animation */
+.match-animation {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Chat bubble styles */
+.chat-bubble {
+  @apply rounded-2xl p-3 max-w-[80%] mb-2;
+}
+
+.chat-bubble-sent {
+  @apply bg-primary text-white ml-auto rounded-br-sm;
+}
+
+.chat-bubble-received {
+  @apply bg-secondary text-secondary-foreground mr-auto rounded-bl-sm;
+}
+
+/* Bottom navigation */
+.bottom-nav {
+  @apply fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t border-purple-100 dark:border-gray-800 flex justify-around items-center p-3 z-40;
+}
+
+.bottom-nav-item {
+  @apply flex flex-col items-center justify-center text-gray-500 dark:text-gray-400;
+}
+
+.bottom-nav-item.active {
+  @apply text-primary;
+}
+
+/* Compatibility badge */
+.compatibility-badge {
+  @apply absolute top-4 right-4 bg-white dark:bg-gray-900 rounded-full w-14 h-14 flex items-center justify-center text-lg font-bold shadow-md z-10;
+  border: 2px solid theme('colors.primary.DEFAULT');
+}
+
+/* NFT badge styles */
+.nft-badge {
+  @apply rounded-full overflow-hidden border-4 border-white dark:border-gray-900 shadow-lg;
+}
+
+/* Interest tags */
+.interest-tag {
+  @apply rounded-full px-3 py-1 text-sm bg-secondary text-secondary-foreground inline-block mr-2 mb-2;
+}
+
+/* PWA install prompt */
+.pwa-prompt {
+  @apply fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 p-4 rounded-t-3xl shadow-xl z-50 border-t-2 border-primary;
+  animation: slide-up 0.4s ease-out;
 }

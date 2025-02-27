@@ -2,20 +2,21 @@
 .DS_Store
 Thumbs.db
 
-# Dependencias de Node.js
+# Dependencias de Node.js - específico para pnpm
 node_modules/
-npm-debug.log
-yarn-debug.log
-yarn-error.log
-.npm
-.yarn/cache
-.pnp.*
+.pnpm-store/
+.pnpm-debug.log
+pnpm-lock.yaml
+pnpm-workspace.yaml
 
 # Archivos de construcción y salida de NextJS
 frontend/.next/
 frontend/out/
 frontend/build/
 frontend/.vercel
+frontend/public/sitemap*.xml
+frontend/public/robots.txt
+frontend/.swc/
 
 # Dependencias y construcción de Rust
 contracts/target/
@@ -58,14 +59,21 @@ logs/
 .eslintcache
 .stylelintcache
 .parcel-cache
+.turbo
 
 # Archivos de cobertura
 coverage/
 .nyc_output
 
 # TypeScript
-.tsbuildinfo
+*.tsbuildinfo
 frontend/dist/
+frontend/tsconfig.tsbuildinfo
+
+# next-pwa
+**/public/workbox-*.js
+**/public/sw.js
+**/public/worker-*.js
 
 # Otros archivos generados o temporales
 *.temp

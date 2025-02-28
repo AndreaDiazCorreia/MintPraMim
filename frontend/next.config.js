@@ -12,6 +12,7 @@ const nextConfig = withPWA({
     ignoreDuringBuilds: true,
   },
   images: { unoptimized: true },
+  reactStrictMode: false, // Disable strict mode to prevent double renders
 });
 
 module.exports = nextConfig;

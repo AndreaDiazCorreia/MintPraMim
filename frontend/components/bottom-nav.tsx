@@ -2,12 +2,23 @@
 
 import Link from 'next/link';
 import { Home, Search, Heart, User } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 interface BottomNavProps {
   active: 'home' | 'explore' | 'matches' | 'profile';
 }
 
 export function BottomNav({ active }: BottomNavProps) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
+
   return (
     <div className="bottom-nav">
       <Link href="/" className={`bottom-nav-item ${active === 'home' ? 'active' : ''}`}>

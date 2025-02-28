@@ -63,8 +63,23 @@ export type UserProfile = {
 // Fetch user's POAPs from Arbitrum network
 export async function fetchUserPoaps(address: string): Promise<POAP[]> {
   // This would be a real API call in production
-  // For hackathon, return mock data
-  return mockPoaps.filter(() => Math.random() > 0.5); // Randomly select some POAPs
+  // For hackathon demo, we'll provide a more deterministic approach
+  
+  // Check if this is supposed to be the current user's address (for demo purposes)
+  const isCurrentUser = address.toLowerCase().startsWith('0x') && 
+                      (address.toLowerCase().includes('1') || 
+                       address.toLowerCase().includes('a') || 
+                       address.toLowerCase().includes('f'));
+  
+  if (isCurrentUser) {
+    // Return the "real" POAPs (101-105) for the current user
+    return mockPoaps.filter(poap => parseInt(poap.id) >= 101);
+  } else {
+    // Return random selection of mock POAPs for other addresses
+    return mockPoaps
+      .filter(poap => parseInt(poap.id) <= 5)
+      .filter(() => Math.random() > 0.5);
+  }
 }
 
 // Find users with matching POAPs
@@ -90,6 +105,7 @@ export function findMatchingUsers(userPoaps: POAP[]): UserProfile[] {
 
 // Mock POAPs for hackathon demo
 const mockPoaps: POAP[] = [
+  // Original mock POAPs
   {
     id: "1",
     name: "Arbitrum Odyssey",
@@ -158,6 +174,78 @@ const mockPoaps: POAP[] = [
       end_date: "2023-07-31",
       country: "Virtual",
       city: "Blockchain"
+    }
+  },
+  
+  // Real POAPs
+  {
+    id: "101",
+    name: "ETHDenver 2024 Attendee",
+    description: "Participant of ETHDenver 2024, one of the largest Ethereum hackathons in the world",
+    imageUrl: "https://i.imgur.com/Nbv3WrL.png", // Example image URL
+    event: {
+      id: "event101",
+      name: "ETHDenver 2024",
+      start_date: "2024-02-23",
+      end_date: "2024-03-03",
+      country: "USA",
+      city: "Denver"
+    }
+  },
+  {
+    id: "102",
+    name: "Arbitrum Orbit Program Member",
+    description: "Active participant in the Arbitrum Orbit program for L3 chains development",
+    imageUrl: "https://i.imgur.com/m7xtXwG.png", // Example image URL
+    event: {
+      id: "event102",
+      name: "Arbitrum Orbit Program",
+      start_date: "2023-11-15",
+      end_date: "2024-02-15",
+      country: "Virtual",
+      city: "Blockchain"
+    }
+  },
+  {
+    id: "103",
+    name: "ETHGlobal Istanbul Attendee",
+    description: "Participated in ETHGlobal Istanbul, a major Ethereum hackathon event",
+    imageUrl: "https://i.imgur.com/cH9V2Wk.png", // Example image URL
+    event: {
+      id: "event103",
+      name: "ETHGlobal Istanbul",
+      start_date: "2023-11-17",
+      end_date: "2023-11-19",
+      country: "Turkey",
+      city: "Istanbul"
+    }
+  },
+  {
+    id: "104",
+    name: "Arbitrum Community Call Attendee",
+    description: "Regular attendee of Arbitrum community calls and governance discussions",
+    imageUrl: "https://i.imgur.com/LDh7mXR.png", // Example image URL
+    event: {
+      id: "event104",
+      name: "Arbitrum Community Calls",
+      start_date: "2023-09-01",
+      end_date: "2024-01-31",
+      country: "Virtual",
+      city: "Blockchain"
+    }
+  },
+  {
+    id: "105",
+    name: "Devcon 7 Attendee",
+    description: "Participated in Devcon 7, the premier annual Ethereum developer conference",
+    imageUrl: "https://i.imgur.com/3gXfTQM.png", // Example image URL
+    event: {
+      id: "event105",
+      name: "Devcon 7",
+      start_date: "2023-10-13",
+      end_date: "2023-10-16",
+      country: "Thailand",
+      city: "Bangkok"
     }
   }
 ];

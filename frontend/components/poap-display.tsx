@@ -15,24 +15,34 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import { CalendarDays, MapPin, X } from "lucide-react";
+import { CalendarDays, MapPin, X, Users } from "lucide-react";
 import { type POAP } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { isMobileDevice } from "@/lib/utils";
+import { useWallet } from "@/lib/wallet";
 
 export function PoapDisplay({ poaps }: { poaps: POAP[] }) {
   const [selectedPoap, setSelectedPoap] = useState<POAP | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   const isMobile = typeof window !== 'undefined' ? isMobileDevice() : false;
+  const { poapHolders } = useWallet();
 
   // Helper function to get POAP image URL from Imgur
   const getPoapImageUrl = (id: string) => {
     const imageMap: Record<string, string> = {
+      // Original mock POAPs
       "1": "https://i.imgur.com/2FXmoQu.png", // Arbitrum Odyssey
       "2": "https://i.imgur.com/t8Vkz9d.png", // ETHGlobal
       "3": "https://i.imgur.com/RGKxyD9.png", // Arbitrum Nova
       "4": "https://i.imgur.com/UzsgKhq.png", // DeFi Summer
       "5": "https://i.imgur.com/YTjYQK8.png", // Arbitrum Governance
+      
+      // Real POAPs
+      "101": "https://i.imgur.com/Nbv3WrL.png", // ETHDenver 2024
+      "102": "https://i.imgur.com/m7xtXwG.png", // Arbitrum Orbit
+      "103": "https://i.imgur.com/cH9V2Wk.png", // ETHGlobal Istanbul
+      "104": "https://i.imgur.com/LDh7mXR.png", // Arbitrum Community
+      "105": "https://i.imgur.com/3gXfTQM.png", // Devcon 7
     };
     
     return imageMap[id] || "";
@@ -41,7 +51,7 @@ export function PoapDisplay({ poaps }: { poaps: POAP[] }) {
   if (!poaps || poaps.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center h-40 border rounded-lg border-dashed">
-        <p className="text-muted-foreground">No POAPs found</p>
+        <p className="text-muted-foreground">Nenhum POAP encontrado</p>
       </div>
     );
   }
@@ -75,8 +85,27 @@ export function PoapDisplay({ poaps }: { poaps: POAP[] }) {
                         alt={poap.name} 
                         className="w-full h-full object-cover" 
                         onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
-                          // Fallback for image loading errors
-                          e.currentTarget.src = `https://i.imgur.com/${poap.id === "1" ? "2FXmoQu" : poap.id === "2" ? "t8Vkz9d" : poap.id === "3" ? "RGKxyD9" : poap.id === "4" ? "UzsgKhq" : poap.id === "5" ? "YTjYQK8" : "Placeholder"}.png`;
+                          // Fallback for image loading errors with support for new POAPs
+                          const poapIdNum = parseInt(poap.id);
+                          let fallbackImg = "Placeholder";
+                          
+                          if (poapIdNum <= 5) {
+                            // Original POAPs
+                            fallbackImg = poap.id === "1" ? "2FXmoQu" : 
+                                          poap.id === "2" ? "t8Vkz9d" : 
+                                          poap.id === "3" ? "RGKxyD9" : 
+                                          poap.id === "4" ? "UzsgKhq" : 
+                                          poap.id === "5" ? "YTjYQK8" : "Placeholder";
+                          } else {
+                            // Real POAPs
+                            fallbackImg = poap.id === "101" ? "Nbv3WrL" : 
+                                          poap.id === "102" ? "m7xtXwG" : 
+                                          poap.id === "103" ? "cH9V2Wk" : 
+                                          poap.id === "104" ? "LDh7mXR" : 
+                                          poap.id === "105" ? "3gXfTQM" : "Placeholder";
+                          }
+                          
+                          e.currentTarget.src = `https://i.imgur.com/${fallbackImg}.png`;
                         }}
                       />
                     </div>
@@ -111,8 +140,27 @@ export function PoapDisplay({ poaps }: { poaps: POAP[] }) {
                           alt={poap.name}
                           className="w-full h-full object-cover"
                           onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
-                            // Fallback for image loading errors
-                            e.currentTarget.src = `https://i.imgur.com/${poap.id === "1" ? "2FXmoQu" : poap.id === "2" ? "t8Vkz9d" : poap.id === "3" ? "RGKxyD9" : poap.id === "4" ? "UzsgKhq" : poap.id === "5" ? "YTjYQK8" : "Placeholder"}.png`;
+                            // Fallback for image loading errors with support for new POAPs
+                            const poapIdNum = parseInt(poap.id);
+                            let fallbackImg = "Placeholder";
+                            
+                            if (poapIdNum <= 5) {
+                              // Original POAPs
+                              fallbackImg = poap.id === "1" ? "2FXmoQu" : 
+                                            poap.id === "2" ? "t8Vkz9d" : 
+                                            poap.id === "3" ? "RGKxyD9" : 
+                                            poap.id === "4" ? "UzsgKhq" : 
+                                            poap.id === "5" ? "YTjYQK8" : "Placeholder";
+                            } else {
+                              // Real POAPs
+                              fallbackImg = poap.id === "101" ? "Nbv3WrL" : 
+                                            poap.id === "102" ? "m7xtXwG" : 
+                                            poap.id === "103" ? "cH9V2Wk" : 
+                                            poap.id === "104" ? "LDh7mXR" : 
+                                            poap.id === "105" ? "3gXfTQM" : "Placeholder";
+                            }
+                            
+                            e.currentTarget.src = `https://i.imgur.com/${fallbackImg}.png`;
                           }}
                         />
                       </div>
@@ -133,6 +181,14 @@ export function PoapDisplay({ poaps }: { poaps: POAP[] }) {
                             {poap.event.city}, {poap.event.country}
                           </span>
                         </div>
+                        {poapHolders[poap.id] && (
+                          <div className="flex items-center pt-1">
+                            <Users className="mr-2 h-4 w-4 opacity-70" />
+                            <span className="text-xs text-muted-foreground">
+                              {poapHolders[poap.id].length} participantes
+                            </span>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </HoverCardContent>
@@ -165,7 +221,27 @@ export function PoapDisplay({ poaps }: { poaps: POAP[] }) {
                   alt={selectedPoap.name}
                   className="w-full h-full object-cover"
                   onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
-                    e.currentTarget.src = `https://i.imgur.com/${selectedPoap.id === "1" ? "2FXmoQu" : selectedPoap.id === "2" ? "t8Vkz9d" : selectedPoap.id === "3" ? "RGKxyD9" : selectedPoap.id === "4" ? "UzsgKhq" : selectedPoap.id === "5" ? "YTjYQK8" : "Placeholder"}.png`;
+                    // Fallback for image loading errors with support for new POAPs
+                    const poapIdNum = parseInt(selectedPoap.id);
+                    let fallbackImg = "Placeholder";
+                    
+                    if (poapIdNum <= 5) {
+                      // Original POAPs
+                      fallbackImg = selectedPoap.id === "1" ? "2FXmoQu" : 
+                                    selectedPoap.id === "2" ? "t8Vkz9d" : 
+                                    selectedPoap.id === "3" ? "RGKxyD9" : 
+                                    selectedPoap.id === "4" ? "UzsgKhq" : 
+                                    selectedPoap.id === "5" ? "YTjYQK8" : "Placeholder";
+                    } else {
+                      // Real POAPs
+                      fallbackImg = selectedPoap.id === "101" ? "Nbv3WrL" : 
+                                    selectedPoap.id === "102" ? "m7xtXwG" : 
+                                    selectedPoap.id === "103" ? "cH9V2Wk" : 
+                                    selectedPoap.id === "104" ? "LDh7mXR" : 
+                                    selectedPoap.id === "105" ? "3gXfTQM" : "Placeholder";
+                    }
+                    
+                    e.currentTarget.src = `https://i.imgur.com/${fallbackImg}.png`;
                   }}
                 />
               </div>
@@ -186,6 +262,14 @@ export function PoapDisplay({ poaps }: { poaps: POAP[] }) {
                   {selectedPoap.event.city}, {selectedPoap.event.country}
                 </span>
               </div>
+              {poapHolders[selectedPoap.id] && (
+                <div className="flex items-center justify-center">
+                  <Users className="mr-2 h-4 w-4 opacity-70" />
+                  <span className="text-xs text-muted-foreground">
+                    {poapHolders[selectedPoap.id].length} participantes
+                  </span>
+                </div>
+              )}
             </div>
           </DialogContent>
         </Dialog>

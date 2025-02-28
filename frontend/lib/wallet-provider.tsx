@@ -106,6 +106,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
           appName: 'MintPraMim',
           learnMoreUrl: 'https://mintpramim.com',
         }}
+        coolMode
       >
         {children}
       </RainbowKitProvider>

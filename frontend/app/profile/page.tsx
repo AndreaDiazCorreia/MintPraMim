@@ -16,7 +16,7 @@ import { PoapDisplay } from '@/components/poap-display';
 import { BottomNav } from '@/components/bottom-nav';
 import { 
   Camera, ArrowRight, Sparkles, LucideEdit, LogOut, ChevronRight, 
-  User, Settings, Heart, Bell, Wallet
+  User, Settings, Heart, Bell, Wallet, Copy, Check
 } from 'lucide-react';
 import Link from 'next/link';
 import { useWallet } from '@/lib/wallet';
@@ -28,6 +28,15 @@ export default function ProfilePage() {
   const [step, setStep] = useState(1);
   const [gender, setGender] = useState("");
   const [lookingFor, setLookingFor] = useState("");
+  const [copied, setCopied] = useState(false);
+  
+  const copyToClipboard = () => {
+    if (address && navigator.clipboard) {
+      navigator.clipboard.writeText(address);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
   
   // Web3 related interests
   const interests = [
@@ -116,8 +125,24 @@ export default function ProfilePage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="font-mono text-sm text-muted-foreground mb-3">
-                {address}
+              <div className="flex items-center justify-between mb-3">
+                <div className="font-mono text-sm text-muted-foreground break-all overflow-hidden">
+                  {address ? (address.length > 18 ? 
+                    `${address.substring(0, 8)}...${address.substring(address.length - 8)}` : 
+                    address) : 'No address available'}
+                </div>
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="h-8 w-8 rounded-full" 
+                  onClick={copyToClipboard}
+                >
+                  {copied ? (
+                    <Check className="h-4 w-4 text-green-500" />
+                  ) : (
+                    <Copy className="h-4 w-4 text-muted-foreground" />
+                  )}
+                </Button>
               </div>
               <p className="text-sm text-muted-foreground mb-3">
                 Connected to Arbitrum Network

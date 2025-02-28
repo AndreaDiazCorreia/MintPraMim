@@ -93,8 +93,8 @@ const mockPoaps: POAP[] = [
   {
     id: "1",
     name: "Arbitrum Odyssey",
-    description: "Completed the Arbitrum Odyssey journey",
-    imageUrl: "https://arweave.net/s/SomeArbitrumOdysseyImage",
+    description: "Completed the Arbitrum Odyssey journey by interacting with key protocols in the ecosystem",
+    imageUrl: "https://i.imgur.com/2FXmoQu.png",
     event: {
       id: "event1",
       name: "Arbitrum Odyssey",
@@ -107,8 +107,8 @@ const mockPoaps: POAP[] = [
   {
     id: "2",
     name: "ETHGlobal 2023 Attendee",
-    description: "Attended ETHGlobal 2023 hackathon",
-    imageUrl: "https://arweave.net/s/SomeETHGlobalImage",
+    description: "Participated in ETHGlobal 2023 hackathon and built innovative projects",
+    imageUrl: "https://i.imgur.com/t8Vkz9d.png",
     event: {
       id: "event2",
       name: "ETHGlobal 2023",
@@ -121,8 +121,8 @@ const mockPoaps: POAP[] = [
   {
     id: "3",
     name: "Arbitrum Nova Launch",
-    description: "Early user of Arbitrum Nova",
-    imageUrl: "https://arweave.net/s/SomeArbitrumNovaImage",
+    description: "Early adopter and supporter of Arbitrum Nova during its initial launch phase",
+    imageUrl: "https://i.imgur.com/RGKxyD9.png",
     event: {
       id: "event3",
       name: "Arbitrum Nova Launch",
@@ -135,8 +135,8 @@ const mockPoaps: POAP[] = [
   {
     id: "4",
     name: "DeFi Summer Contributor",
-    description: "Participated in DeFi Summer protocols",
-    imageUrl: "https://arweave.net/s/SomeDeFiSummerImage",
+    description: "Actively participated in DeFi Summer by providing liquidity and using key protocols",
+    imageUrl: "https://i.imgur.com/UzsgKhq.png",
     event: {
       id: "event4",
       name: "DeFi Summer",
@@ -149,8 +149,8 @@ const mockPoaps: POAP[] = [
   {
     id: "5",
     name: "Arbitrum Governance Voter",
-    description: "Voted in Arbitrum governance proposals",
-    imageUrl: "https://arweave.net/s/SomeArbitrumGovernanceImage",
+    description: "Participated in Arbitrum governance by voting on key proposals and initiatives",
+    imageUrl: "https://i.imgur.com/YTjYQK8.png",
     event: {
       id: "event5",
       name: "Arbitrum Governance",

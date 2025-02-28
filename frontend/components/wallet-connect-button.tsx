@@ -230,6 +230,7 @@ export function WalletConnectButton({
                       )}
                     </div>
                   );
+                }}
               </ConnectButton.Custom>
             </div>
           </div>

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Wallet, LogOut, Loader2 } from "lucide-react";
+import { Wallet, LogOut, Loader2, ExternalLink } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import { useWallet } from "@/lib/wallet";
 import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { isMobileDevice, hasMetaMaskExtension, openMetaMaskDeepLink } from "@/lib/utils";
 
 interface WalletConnectButtonProps {
   variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link";
@@ -93,12 +94,12 @@ export function WalletConnectButton({
   return (
     <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
       <DialogTrigger asChild>
-        <Button variant={variant} size={size} className={className}>
+        <Button variant={variant} size={size} className={className} type="button">
           <Wallet className="w-4 h-4 mr-2" />
           Connect Wallet
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md w-[95vw] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Connect your wallet</DialogTitle>
           <DialogDescription>
@@ -106,73 +107,90 @@ export function WalletConnectButton({
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          <div className="flex justify-center">
+          <div className="flex justify-center w-full">
             {/* Custom RainbowKit button display */}
-            <ConnectButton.Custom>
-              {({
-                account,
-                chain,
-                openAccountModal,
-                openChainModal,
-                openConnectModal,
-                authenticationStatus,
-                mounted,
-              }) => {
-                const ready = mounted && authenticationStatus !== 'loading';
-                const connected =
-                  ready &&
-                  account &&
-                  chain &&
-                  (!authenticationStatus ||
-                    authenticationStatus === 'authenticated');
+            <div className="w-full space-y-3">
+              {/* Direct MetaMask App button for mobile */}
+              <Button 
+                onClick={() => {
+                  // This direct deep link will open the MetaMask app on mobile
+                  window.location.href = `https://metamask.app.link/dapp/${window.location.href.replace(/^https?:\/\//, '')}`;
+                }}
+                className="flex gap-2 py-6 px-5 text-lg w-full bg-[#F6851B] hover:bg-[#E2761B] text-white"
+                type="button"
+              >
+                <img 
+                  src="https://raw.githubusercontent.com/MetaMask/brand-resources/master/SVG/metamask-fox.svg" 
+                  alt="MetaMask"
+                  className="h-6 w-6"
+                />
+                <span>Open in MetaMask</span>
+              </Button>
+              
+              {/* Other wallets using RainbowKit */}
+              <p className="text-center font-semibold my-2">OR</p>
+              
+              <ConnectButton.Custom>
+                {({
+                  account,
+                  chain,
+                  openAccountModal,
+                  openChainModal,
+                  openConnectModal,
+                  authenticationStatus,
+                  mounted,
+                }) => {
+                  const ready = mounted && authenticationStatus !== 'loading';
+                  const connected =
+                    ready &&
+                    account &&
+                    chain &&
+                    (!authenticationStatus ||
+                      authenticationStatus === 'authenticated');
 
-                return (
-                  <div
-                    {...(!ready && {
-                      'aria-hidden': true,
-                      'style': {
-                        opacity: 0,
-                        pointerEvents: 'none',
-                        userSelect: 'none',
-                      },
-                    })}
-                  >
-                    {(() => {
-                      if (!connected) {
-                        return (
-                          <Button
-                            onClick={openConnectModal}
-                            className="flex gap-2 py-6 px-5 text-lg"
-                            disabled={isLoading}
-                          >
-                            {isLoading ? (
-                              <>
-                                <Loader2 className="w-5 h-5 animate-spin" />
-                                <span>Connecting...</span>
-                              </>
-                            ) : (
-                              <>
-                                <Wallet className="w-5 h-5" />
-                                <span>Connect Wallet</span>
-                              </>
-                            )}
-                          </Button>
-                        );
-                      }
+                  return (
+                    <div
+                      {...(!ready && {
+                        'aria-hidden': true,
+                        'style': {
+                          opacity: 0,
+                          pointerEvents: 'none',
+                          userSelect: 'none',
+                        },
+                      })}
+                    >
+                      {!connected ? (
+                        <Button
+                          onClick={openConnectModal}
+                          className="flex gap-2 py-6 px-5 text-lg w-full"
+                          disabled={isLoading}
+                          type="button"
+                        >
+                          {isLoading ? (
+                            <>
+                              <Loader2 className="w-5 h-5 animate-spin" />
+                              <span>Connecting...</span>
+                            </>
+                          ) : (
+                            <>
+                              <Wallet className="w-5 h-5" />
+                              <span>Choose other wallet</span>
+                            </>
+                          )}
+                        </Button>
+                      ) : null}
 
-                      if (chain.unsupported) {
-                        return (
-                          <Button 
-                            onClick={openChainModal} 
-                            variant="destructive"
-                            className="flex gap-2 py-6 px-5 text-lg"
-                          >
-                            Wrong Network
-                          </Button>
-                        );
-                      }
+                      {chain && chain.unsupported && (
+                        <Button 
+                          onClick={openChainModal} 
+                          variant="destructive"
+                          className="flex gap-2 py-6 px-5 text-lg"
+                        >
+                          Wrong Network
+                        </Button>
+                      )}
 
-                      return (
+                      {connected && chain && !chain.unsupported && (
                         <div className="flex gap-3">
                           <Button
                             onClick={openChainModal}
@@ -209,12 +227,11 @@ export function WalletConnectButton({
                             {account.displayName}
                           </Button>
                         </div>
-                      );
-                    })()}
-                  </div>
-                );
-              }}
-            </ConnectButton.Custom>
+                      )}
+                    </div>
+                  );
+              </ConnectButton.Custom>
+            </div>
           </div>
         </div>
       </DialogContent>

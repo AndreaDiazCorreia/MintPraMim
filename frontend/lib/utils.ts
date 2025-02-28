@@ -5,6 +5,34 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+export function isMobileDevice() {
+  if (typeof window === 'undefined') return false;
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  );
+}
+
+// Add TypeScript declaration for ethereum provider
+declare global {
+  interface Window {
+    ethereum?: {
+      isMetaMask?: boolean;
+      [key: string]: any;
+    };
+  }
+}
+
+export function hasMetaMaskExtension() {
+  if (typeof window === 'undefined') return false;
+  return window.ethereum && window.ethereum.isMetaMask;
+}
+
+export function openMetaMaskDeepLink() {
+  const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
+  // Creates a direct deep link to open MetaMask with current URL
+  window.location.href = `https://metamask.app.link/dapp/${currentUrl.replace(/^https?:\/\//, '')}`;
+}
+
 // Mock POAP API for hackathon
 export type POAP = {
   id: string;

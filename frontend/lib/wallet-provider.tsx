@@ -35,26 +35,52 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
   ]
 );
 
-// For development, we'll use a hardcoded project ID
-// In production, this should be an environment variable
-const projectId = "3ae9635d26a3950bf9943762235b2337";
+// Get WalletConnect project ID from environment variable
+// If not available, use a fallback for development only
+const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || "";
 
 // Custom configuration for wallet options - this lets users choose their preferred wallet
 const connectors = connectorsForWallets([
   {
     groupName: 'Recommended',
     wallets: [
-      metaMaskWallet({ projectId, chains }),
-      coinbaseWallet({ appName: 'MintPraMim', chains }),
-      walletConnectWallet({ projectId, chains }),
+      metaMaskWallet({ 
+        projectId, 
+        chains,
+        shimDisconnect: true 
+      }),
+      walletConnectWallet({ 
+        projectId, 
+        chains,
+        qrModalOptions: {
+          themeMode: 'light',
+          explorerRecommendedWalletIds: [
+            'c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96', // MetaMask
+            '4622a2b2d6af1c9844944291e5e7351a6aa24cd7b23099efac1b2fd875da31a0'  // Trust
+          ],
+          explorerExcludedWalletIds: 'ALL',
+          mobileLinks: ['metamask', 'trust']
+        }
+      }),
+      coinbaseWallet({ 
+        appName: 'MintPraMim', 
+        chains 
+      }),
     ],
   },
   {
     groupName: 'Other',
     wallets: [
-      trustWallet({ projectId, chains }),
+      trustWallet({ 
+        projectId, 
+        chains,
+        shimDisconnect: true 
+      }),
       rainbowWallet({ projectId, chains }),
-      injectedWallet({ chains }),
+      injectedWallet({ 
+        chains, 
+        shimDisconnect: true 
+      }),
     ],
   },
 ]);
@@ -76,12 +102,19 @@ export function WalletProvider({ children }: { children: ReactNode }) {
         chains={chains}
         initialChain={arbitrum}
         showRecentTransactions={true}
-        theme={theme === 'dark' ? darkTheme() : lightTheme({
+        theme={theme === 'dark' ? darkTheme({
+          overlayBlur: 'small',
+        }) : lightTheme({
           accentColor: '#9333ea', // purple-600
           accentColorForeground: 'white',
           borderRadius: 'large',
+          overlayBlur: 'small',
         })}
         modalSize="compact"
+        appInfo={{
+          appName: 'MintPraMim',
+          learnMoreUrl: 'https://mintpramim.com',
+        }}
       >
         {children}
       </RainbowKitProvider>

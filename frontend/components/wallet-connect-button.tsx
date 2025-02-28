@@ -14,12 +14,19 @@ import {
 import { useWallet } from "@/lib/wallet";
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 
+interface WalletConnectButtonProps {
+  variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link";
+  size?: "default" | "sm" | "lg" | "icon";
+  className?: string;
+  showProfileOnConnect?: boolean;
+}
+
 export function WalletConnectButton({
   variant = "default",
   size = "default",
   className = "",
   showProfileOnConnect = false,
-}) {
+}: WalletConnectButtonProps) {
   const { address, isConnected, isLoading, connect, disconnect, loadUserData } = useWallet();
   const [dialogOpen, setDialogOpen] = useState(false);
 

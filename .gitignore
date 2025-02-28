@@ -6,7 +6,6 @@ Thumbs.db
 node_modules/
 .pnpm-store/
 .pnpm-debug.log
-pnpm-lock.yaml
 pnpm-workspace.yaml
 
 # Archivos de construcción y salida de NextJS

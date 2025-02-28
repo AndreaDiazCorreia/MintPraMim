@@ -1,14 +1,8 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
-}
+pub mod main_contract;
+pub mod poap_verifier;
+pub mod boost_manager;
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
-}
+// Exportamos los tipos principales para facilitar su uso
+pub use main_contract::MainContract;
+pub use poap_verifier::POAPVerifier;
+pub use boost_manager::BoostManager;

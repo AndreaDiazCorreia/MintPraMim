@@ -12,7 +12,7 @@ import { Card } from '@/components/ui/card';
 import { WalletConnectButton } from '@/components/wallet-connect-button';
 import { PoapDisplay } from '@/components/poap-display';
 import { useWallet } from '@/lib/wallet';
-import TinderCard, { API as TinderCardAPI } from 'react-tinder-card';
+import TinderCard from 'react-tinder-card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
 export default function ExplorePage() {

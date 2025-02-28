@@ -95,7 +95,7 @@ export default function ChatPage({ params }: { params: { id: string } }) {
             )}
           </div>
           <p className="text-xs text-muted-foreground">
-            {chatData.compatibility}% compatibility
+            {chatData.compatibility}% de compatibilidade
           </p>
         </div>
         
@@ -124,7 +124,7 @@ export default function ChatPage({ params }: { params: { id: string } }) {
           </Button>
           
           <Input
-            placeholder="Type a message..."
+            placeholder="Digite uma mensagem..."
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
             className="rounded-full bg-secondary border-0"

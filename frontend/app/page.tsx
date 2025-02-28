@@ -34,7 +34,7 @@ export default function Home() {
           MintPraMim
         </h1>
         <p className="text-muted-foreground max-w-md mx-auto">
-          Connect with people who share your POAP NFTs and create meaningful connections
+          Conecte-se com pessoas que compartilham seus POAP NFTs e crie conexões significativas
         </p>
       </div>
       
@@ -42,8 +42,8 @@ export default function Home() {
       <div className="w-full max-w-md bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-lg border border-purple-100">
         <div className="space-y-6">
           <div className="text-center mb-8">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-2">Welcome</h2>
-            <p className="text-muted-foreground">Connect your wallet to find matches based on your POAPs</p>
+            <h2 className="text-2xl font-semibold text-gray-800 mb-2">Bem-vindo</h2>
+            <p className="text-muted-foreground">Conecte sua carteira para encontrar matches com base nos seus POAPs</p>
           </div>
           
           <div className="flex justify-center">
@@ -85,7 +85,7 @@ export default function Home() {
                             className="w-full py-6 text-lg rounded-xl bg-primary hover:bg-primary/90 flex items-center justify-center gap-2"
                           >
                             <Sparkles className="w-5 h-5" />
-                            <span>Connect Wallet</span>
+                            <span>Conectar Carteira</span>
                           </Button>
                         );
                       }
@@ -96,7 +96,7 @@ export default function Home() {
                             onClick={openChainModal} 
                             className="w-full py-6 text-lg rounded-xl bg-destructive hover:bg-destructive/90"
                           >
-                            Switch to Arbitrum
+                            Mudar para Arbitrum
                           </Button>
                         );
                       }
@@ -110,7 +110,7 @@ export default function Home() {
                             {account.displayName}
                           </Button>
                           <div className="text-center text-sm">
-                            <span>Connected to {chain.name}</span>
+                            <span>Conectado à {chain.name}</span>
                           </div>
                         </div>
                       );
@@ -124,11 +124,11 @@ export default function Home() {
         
         <div className="mt-8 text-center">
           <p className="text-sm text-muted-foreground mb-2">
-            By continuing, you agree to our Terms and Privacy Policy
+            Ao continuar, você concorda com nossos Termos e Política de Privacidade
           </p>
           <div className="flex items-center justify-center gap-2 text-primary">
             <Heart className="w-4 h-4" />
-            <span className="text-sm font-medium">Find your perfect match</span>
+            <span className="text-sm font-medium">Encontre seu match perfeito</span>
           </div>
         </div>
       </div>
@@ -137,7 +137,7 @@ export default function Home() {
       <div className="mt-12 flex justify-center gap-8 text-center">
         <div>
           <p className="text-2xl font-bold text-primary">100+</p>
-          <p className="text-sm text-muted-foreground">POAPs Supported</p>
+          <p className="text-sm text-muted-foreground">POAPs Suportados</p>
         </div>
         <div>
           <p className="text-2xl font-bold text-primary">500+</p>
@@ -145,7 +145,7 @@ export default function Home() {
         </div>
         <div>
           <p className="text-2xl font-bold text-primary">1k+</p>
-          <p className="text-sm text-muted-foreground">Connections Made</p>
+          <p className="text-sm text-muted-foreground">Conexões Feitas</p>
         </div>
       </div>
       
@@ -157,13 +157,13 @@ export default function Home() {
               <Sparkles className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h3 className="font-semibold">Add MintPraMim to Home Screen</h3>
-              <p className="text-sm text-muted-foreground">For the best experience</p>
+              <h3 className="font-semibold">Adicione MintPraMim à Tela Inicial</h3>
+              <p className="text-sm text-muted-foreground">Para a melhor experiência</p>
             </div>
           </div>
           <div className="flex gap-2">
-            <Button variant="outline" size="sm">Later</Button>
-            <Button size="sm">Install</Button>
+            <Button variant="outline" size="sm">Depois</Button>
+            <Button size="sm">Instalar</Button>
           </div>
         </div>
       </div>

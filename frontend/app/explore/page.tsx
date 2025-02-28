@@ -136,7 +136,7 @@ export default function ExplorePage() {
     <main className="min-h-screen pb-20">
       <div className="max-w-md mx-auto p-4">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-bold">Explore</h1>
+          <h1 className="text-2xl font-bold">Explorar</h1>
           <div className="flex gap-2">
             {/* POAP Display Button */}
             {address && (
@@ -159,12 +159,12 @@ export default function ExplorePage() {
               </DialogTrigger>
               <DialogContent className="rounded-2xl">
                 <DialogHeader>
-                  <DialogTitle>Filter Preferences</DialogTitle>
+                  <DialogTitle>Preferências de Filtro</DialogTitle>
                 </DialogHeader>
                 <div className="space-y-6 py-4">
                   <div className="space-y-2">
                     <div className="flex justify-between">
-                      <Label>Distance</Label>
+                      <Label>Distância</Label>
                       <span className="text-sm text-muted-foreground">{distance[0]} km</span>
                     </div>
                     <Slider
@@ -177,7 +177,7 @@ export default function ExplorePage() {
                   
                   <div className="space-y-2">
                     <div className="flex justify-between">
-                      <Label>Age Range</Label>
+                      <Label>Faixa Etária</Label>
                       <span className="text-sm text-muted-foreground">{ageRange[0]} - {ageRange[1]}</span>
                     </div>
                     <Slider
@@ -190,7 +190,7 @@ export default function ExplorePage() {
                   </div>
                   
                   <div className="flex items-center justify-between">
-                    <Label htmlFor="verified-only">Verified profiles only</Label>
+                    <Label htmlFor="verified-only">Apenas perfis verificados</Label>
                     <Switch
                       id="verified-only"
                       checked={showVerifiedOnly}
@@ -199,7 +199,7 @@ export default function ExplorePage() {
                   </div>
                   
                   <Button className="w-full rounded-xl bg-primary hover:bg-primary/90">
-                    Apply Filters
+                    Aplicar Filtros
                   </Button>
                 </div>
               </DialogContent>
@@ -211,9 +211,9 @@ export default function ExplorePage() {
         {!address && (
           <div className="flex flex-col items-center justify-center h-[70vh] text-center">
             <Sparkles className="w-12 h-12 text-primary/40 mb-4" />
-            <h3 className="text-xl font-semibold mb-2">Connect Your Wallet</h3>
+            <h3 className="text-xl font-semibold mb-2">Conecte Sua Carteira</h3>
             <p className="text-muted-foreground max-w-xs mb-6">
-              You need to connect your wallet to see potential matches based on your POAPs.
+              Você precisa conectar sua carteira para ver potenciais matches baseados nos seus POAPs.
             </p>
             <WalletConnectButton 
               variant="default"
@@ -228,7 +228,7 @@ export default function ExplorePage() {
           <Alert className="mb-4 bg-primary/10 border-primary/20">
             <AlertCircle className="h-4 w-4 text-primary" />
             <AlertDescription className="text-sm">
-              No matches found based on your POAPs. Check back later as more users join!
+              Nenhum match encontrado com base nos seus POAPs. Volte mais tarde conforme mais usuários se juntarem!
             </AlertDescription>
           </Alert>
         )}
@@ -257,7 +257,7 @@ export default function ExplorePage() {
                   <div className="absolute inset-0 bg-gradient-to-b from-black/80 to-transparent z-10" />
                   
                   <div className="absolute bottom-4 right-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-semibold shadow-lg z-20">
-                    {user.compatibility}% Match
+                    {user.compatibility}% de Match
                   </div>
                   
                   <div className="absolute top-0 left-0 right-0 p-6 z-20 text-white">
@@ -282,9 +282,9 @@ export default function ExplorePage() {
             address && userPoaps.length === 0 ? (
               <div className="flex flex-col items-center justify-center h-full text-center">
                 <Sparkles className="w-12 h-12 text-primary/40 mb-4" />
-                <h3 className="text-xl font-semibold mb-2">No POAPs Found</h3>
+                <h3 className="text-xl font-semibold mb-2">Nenhum POAP Encontrado</h3>
                 <p className="text-muted-foreground max-w-xs">
-                  Connect your wallet with POAPs to find matches with people who share your interests.
+                  Conecte sua carteira com POAPs para encontrar matches com pessoas que compartilham seus interesses.
                 </p>
               </div>
             ) : null
@@ -303,7 +303,7 @@ export default function ExplorePage() {
               aria-label="Dislike"
             >
               <X className="h-8 w-8 text-red-500" />
-              <span className="sr-only">Dislike</span>
+              <span className="sr-only">Não Curtir</span>
             </Button>
             
             <Button 
@@ -315,7 +315,7 @@ export default function ExplorePage() {
               aria-label="Superlike"
             >
               <Star className="h-8 w-8 text-blue-500" />
-              <span className="sr-only">Superlike</span>
+              <span className="sr-only">Super Curtir</span>
             </Button>
             
             <Button 
@@ -327,7 +327,7 @@ export default function ExplorePage() {
               aria-label="Like"
             >
               <Heart className="h-8 w-8 text-primary" />
-              <span className="sr-only">Like</span>
+              <span className="sr-only">Curtir</span>
             </Button>
           </div>
         )}
@@ -359,17 +359,17 @@ export default function ExplorePage() {
           </div>
           
           <h2 className="text-2xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-purple-400">
-            It's a Match!
+            É um Match!
           </h2>
-          <p className="text-gray-600 mb-6">You and Alex liked each other</p>
+          <p className="text-gray-600 mb-6">Você e Alex curtiram um ao outro</p>
           
           <div className="space-y-3">
             <Button className="w-full rounded-xl bg-primary hover:bg-primary/90">
               <MessageCircle className="mr-2 h-4 w-4" />
-              Send a Message
+              Enviar uma Mensagem
             </Button>
             <Button variant="outline" className="w-full rounded-xl border-purple-200">
-              Keep Exploring
+              Continuar Explorando
             </Button>
           </div>
         </div>
@@ -381,12 +381,12 @@ export default function ExplorePage() {
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Sparkles className="h-4 w-4 text-primary" />
-              Your POAPs
+              Seus POAPs
             </DialogTitle>
           </DialogHeader>
           <div className="space-y-4 py-4">
             <p className="text-sm text-muted-foreground">
-              These are the POAPs in your wallet. We use these to match you with people who share similar interests.
+              Estes são os POAPs na sua carteira. Usamos eles para conectar você com pessoas que compartilham interesses similares.
             </p>
             <PoapDisplay poaps={userPoaps} />
           </div>

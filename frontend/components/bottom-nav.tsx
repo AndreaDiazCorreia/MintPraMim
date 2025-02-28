@@ -12,12 +12,12 @@ export function BottomNav({ active }: BottomNavProps) {
     <div className="bottom-nav">
       <Link href="/" className={`bottom-nav-item ${active === 'home' ? 'active' : ''}`}>
         <Home className="h-6 w-6" />
-        <span className="text-xs mt-1">Home</span>
+        <span className="text-xs mt-1">Início</span>
       </Link>
       
       <Link href="/explore" className={`bottom-nav-item ${active === 'explore' ? 'active' : ''}`}>
         <Search className="h-6 w-6" />
-        <span className="text-xs mt-1">Explore</span>
+        <span className="text-xs mt-1">Explorar</span>
       </Link>
       
       <Link href="/matches" className={`bottom-nav-item ${active === 'matches' ? 'active' : ''}`}>
@@ -27,7 +27,7 @@ export function BottomNav({ active }: BottomNavProps) {
       
       <Link href="/profile" className={`bottom-nav-item ${active === 'profile' ? 'active' : ''}`}>
         <User className="h-6 w-6" />
-        <span className="text-xs mt-1">Profile</span>
+        <span className="text-xs mt-1">Perfil</span>
       </Link>
     </div>
   );

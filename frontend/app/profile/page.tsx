@@ -72,7 +72,7 @@ export default function ProfilePage() {
       <main className="min-h-screen pb-20">
         <div className="max-w-md mx-auto p-4">
           <div className="flex justify-between items-center mb-6">
-            <h1 className="text-2xl font-bold">Profile</h1>
+            <h1 className="text-2xl font-bold">Perfil</h1>
             <Button variant="ghost" size="icon" onClick={handleLogout}>
               <LogOut className="h-5 w-5" />
             </Button>
@@ -88,7 +88,7 @@ export default function ProfilePage() {
                     <AvatarFallback>👤</AvatarFallback>
                   </Avatar>
                   <div>
-                    <CardTitle>Your Profile</CardTitle>
+                    <CardTitle>Seu Perfil</CardTitle>
                     <CardDescription>São Paulo, Brazil</CardDescription>
                   </div>
                 </div>
@@ -104,7 +104,7 @@ export default function ProfilePage() {
             </CardHeader>
             <CardContent className="space-y-3">
               <p className="text-sm text-muted-foreground">
-                Web3 enthusiast and crypto lover. Looking for others who share my passion for blockchain technology!
+                Entusiasta de Web3 e amante de crypto. Procurando por outros que compartilham minha paixão por tecnologia blockchain!
               </p>
               <div className="flex flex-wrap gap-2 pt-2">
                 {["Crypto", "DeFi", "NFTs", "Web3", "Metaverse"].map((interest) => (
@@ -121,7 +121,7 @@ export default function ProfilePage() {
             <CardHeader className="pb-3">
               <CardTitle className="text-lg flex items-center gap-2">
                 <Wallet className="h-5 w-5 text-primary" />
-                Wallet
+                Carteira
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -129,7 +129,7 @@ export default function ProfilePage() {
                 <div className="font-mono text-sm text-muted-foreground break-all overflow-hidden">
                   {address ? (address.length > 18 ? 
                     `${address.substring(0, 8)}...${address.substring(address.length - 8)}` : 
-                    address) : 'No address available'}
+                    address) : 'Nenhum endereço disponível'}
                 </div>
                 <Button 
                   variant="ghost" 
@@ -145,7 +145,7 @@ export default function ProfilePage() {
                 </Button>
               </div>
               <p className="text-sm text-muted-foreground mb-3">
-                Connected to Arbitrum Network
+                Conectado à Rede Arbitrum
               </p>
             </CardContent>
           </Card>
@@ -155,10 +155,10 @@ export default function ProfilePage() {
             <CardHeader className="pb-3">
               <CardTitle className="text-lg flex items-center gap-2">
                 <Sparkles className="h-5 w-5 text-primary" />
-                Your POAPs
+                Seus POAPs
               </CardTitle>
               <CardDescription>
-                Proof of attendance tokens that help you find matches
+                Tokens de prova de presença que ajudam você a encontrar matches
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -169,28 +169,28 @@ export default function ProfilePage() {
           {/* Settings Links */}
           <Card>
             <CardHeader className="pb-3">
-              <CardTitle className="text-lg">Settings</CardTitle>
+              <CardTitle className="text-lg">Configurações</CardTitle>
             </CardHeader>
             <CardContent className="p-0">
               <div className="space-y-0 divide-y">
                 <Button variant="ghost" className="w-full justify-start rounded-none py-6 px-6">
                   <User className="h-5 w-5 mr-3 text-primary" />
-                  <span>Account Settings</span>
+                  <span>Configurações da Conta</span>
                   <ChevronRight className="ml-auto h-5 w-5 text-muted-foreground" />
                 </Button>
                 <Button variant="ghost" className="w-full justify-start rounded-none py-6 px-6">
                   <Bell className="h-5 w-5 mr-3 text-primary" />
-                  <span>Notifications</span>
+                  <span>Notificações</span>
                   <ChevronRight className="ml-auto h-5 w-5 text-muted-foreground" />
                 </Button>
                 <Button variant="ghost" className="w-full justify-start rounded-none py-6 px-6">
                   <Settings className="h-5 w-5 mr-3 text-primary" />
-                  <span>Privacy & Security</span>
+                  <span>Privacidade & Segurança</span>
                   <ChevronRight className="ml-auto h-5 w-5 text-muted-foreground" />
                 </Button>
                 <Button variant="ghost" className="w-full justify-start rounded-none py-6 px-6">
                   <Heart className="h-5 w-5 mr-3 text-primary" />
-                  <span>Match Preferences</span>
+                  <span>Preferências de Match</span>
                   <ChevronRight className="ml-auto h-5 w-5 text-muted-foreground" />
                 </Button>
               </div>
@@ -209,16 +209,16 @@ export default function ProfilePage() {
       <main className="min-h-screen pb-20">
         <div className="max-w-md mx-auto p-4">
           <div className="flex justify-between items-center mb-6">
-            <h1 className="text-2xl font-bold">Profile</h1>
+            <h1 className="text-2xl font-bold">Perfil</h1>
           </div>
           
           <div className="flex flex-col items-center justify-center h-[70vh] text-center">
             <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mb-4">
               <User className="h-10 w-10 text-primary" />
             </div>
-            <h2 className="text-xl font-semibold mb-2">Connect Your Wallet</h2>
+            <h2 className="text-xl font-semibold mb-2">Conecte Sua Carteira</h2>
             <p className="text-muted-foreground mb-6 max-w-xs">
-              Connect your wallet to access your profile and find matches based on your POAPs.
+              Conecte sua carteira para acessar seu perfil e encontrar matches com base nos seus POAPs.
             </p>
             <WalletConnectButton variant="default" size="lg" className="mb-3" />
           </div>
@@ -236,8 +236,8 @@ export default function ProfilePage() {
         {step === 1 && (
           <div className="space-y-6">
             <div className="text-center mb-8">
-              <h1 className="text-2xl font-bold">Create Your Profile</h1>
-              <p className="text-muted-foreground">Tell us about yourself</p>
+              <h1 className="text-2xl font-bold">Crie Seu Perfil</h1>
+              <p className="text-muted-foreground">Conte-nos sobre você</p>
             </div>
             
             <div className="flex justify-center mb-8">
@@ -256,51 +256,51 @@ export default function ProfilePage() {
             
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="name">Your Name</Label>
-                <Input id="name" placeholder="Enter your name" className="rounded-xl" />
+                <Label htmlFor="name">Seu Nome</Label>
+                <Input id="name" placeholder="Digite seu nome" className="rounded-xl" />
               </div>
               
               <div className="space-y-2">
                 <Label htmlFor="bio">Bio</Label>
                 <Textarea 
                   id="bio" 
-                  placeholder="Tell others about yourself..." 
+                  placeholder="Conte aos outros sobre você..." 
                   className="rounded-xl min-h-[100px]"
                 />
               </div>
               
               <div className="space-y-2">
-                <Label>I am</Label>
+                <Label>Eu sou</Label>
                 <RadioGroup value={gender} onValueChange={setGender} className="flex gap-4">
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="male" id="male" />
-                    <Label htmlFor="male">Male</Label>
+                    <Label htmlFor="male">Homem</Label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="female" id="female" />
-                    <Label htmlFor="female">Female</Label>
+                    <Label htmlFor="female">Mulher</Label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="other" id="other" />
-                    <Label htmlFor="other">Other</Label>
+                    <Label htmlFor="other">Outro</Label>
                   </div>
                 </RadioGroup>
               </div>
               
               <div className="space-y-2">
-                <Label>Looking for</Label>
+                <Label>Procurando por</Label>
                 <RadioGroup value={lookingFor} onValueChange={setLookingFor} className="flex gap-4">
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="men" id="men" />
-                    <Label htmlFor="men">Men</Label>
+                    <Label htmlFor="men">Homens</Label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="women" id="women" />
-                    <Label htmlFor="women">Women</Label>
+                    <Label htmlFor="women">Mulheres</Label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="everyone" id="everyone" />
-                    <Label htmlFor="everyone">Everyone</Label>
+                    <Label htmlFor="everyone">Todos</Label>
                   </div>
                 </RadioGroup>
               </div>
@@ -309,7 +309,7 @@ export default function ProfilePage() {
                 className="w-full py-6 rounded-xl mt-6 bg-primary hover:bg-primary/90"
                 onClick={() => setStep(2)}
               >
-                Continue
+                Continuar
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
             </div>
@@ -319,8 +319,8 @@ export default function ProfilePage() {
         {step === 2 && (
           <div className="space-y-6">
             <div className="text-center mb-8">
-              <h1 className="text-2xl font-bold">Your Interests</h1>
-              <p className="text-muted-foreground">Select up to 5 interests</p>
+              <h1 className="text-2xl font-bold">Seus Interesses</h1>
+              <p className="text-muted-foreground">Selecione até 5 interesses</p>
             </div>
             
             <div className="grid grid-cols-2 gap-3">
@@ -346,13 +346,13 @@ export default function ProfilePage() {
                 className="flex-1 py-6 rounded-xl border-purple-200"
                 onClick={() => setStep(1)}
               >
-                Back
+                Voltar
               </Button>
               <Button 
                 className="flex-1 py-6 rounded-xl bg-primary hover:bg-primary/90"
                 onClick={() => setIsEditingProfile(false)}
               >
-                {isEditingProfile ? 'Save Changes' : 'Complete Profile'}
+                {isEditingProfile ? 'Salvar Alterações' : 'Completar Perfil'}
               </Button>
             </div>
           </div>

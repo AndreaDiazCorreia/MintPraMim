@@ -52,7 +52,7 @@ export default function MatchesPage() {
     <main className="min-h-screen pb-20">
       <div className="max-w-md mx-auto p-4">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-bold">Your Matches</h1>
+          <h1 className="text-2xl font-bold">Seus Matches</h1>
           <Button variant="ghost" size="icon" className="rounded-full">
             <MessageCircle className="h-5 w-5" />
           </Button>
@@ -61,7 +61,7 @@ export default function MatchesPage() {
         <div className="relative mb-6">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
           <Input 
-            placeholder="Search matches" 
+            placeholder="Buscar matches" 
             className="pl-10 rounded-xl bg-secondary border-0"
           />
         </div>
@@ -105,8 +105,8 @@ export default function MatchesPage() {
         {/* NFT Badges Section */}
         <div className="mt-8">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-semibold">Special NFT Badges</h2>
-            <Button variant="link" className="text-primary p-0">View All</Button>
+            <h2 className="text-lg font-semibold">Emblemas NFT Especiais</h2>
+            <Button variant="link" className="text-primary p-0">Ver Todos</Button>
           </div>
           
           <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
@@ -116,7 +116,7 @@ export default function MatchesPage() {
                   <Sparkles className="w-8 h-8 text-white" />
                 </div>
               </div>
-              <span className="text-xs text-center">Early Adopter</span>
+              <span className="text-xs text-center">Adotante Inicial</span>
             </div>
             
             <div className="flex flex-col items-center space-y-2 min-w-[80px]">
@@ -125,7 +125,7 @@ export default function MatchesPage() {
                   <Heart className="w-8 h-8 text-white" />
                 </div>
               </div>
-              <span className="text-xs text-center">Match Maker</span>
+              <span className="text-xs text-center">Criador de Matches</span>
             </div>
             
             <div className="flex flex-col items-center space-y-2 min-w-[80px]">
@@ -134,7 +134,7 @@ export default function MatchesPage() {
                   <Star className="w-8 h-8 text-white" />
                 </div>
               </div>
-              <span className="text-xs text-center">Verified</span>
+              <span className="text-xs text-center">Verificado</span>
             </div>
             
             <div className="flex flex-col items-center space-y-2 min-w-[80px]">
@@ -143,7 +143,7 @@ export default function MatchesPage() {
                   <Gift className="w-8 h-8 text-white" />
                 </div>
               </div>
-              <span className="text-xs text-center">Gift Giver</span>
+              <span className="text-xs text-center">Doador</span>
             </div>
           </div>
         </div>

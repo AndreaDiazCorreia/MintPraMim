@@ -7,9 +7,8 @@ use alloy_sol_types::sol;
 use stylus_sdk::{
     msg,
     prelude::*,
-    call::{call, Call, transfer_eth},
+    call::{Call, transfer_eth},
     block,
-    evm,
     sol_emit,
     storage::{
         StorageAddress,

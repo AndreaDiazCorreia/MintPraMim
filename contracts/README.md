@@ -1,25 +1,12 @@
-# MintPraMim Contracts - README
+# 🔗 MintPraMim Smart Contracts
 
 ## Overview
 
 MintPraMim is a blockchain-based application that facilitates connections between users based on their POAP collections, focusing on creating matches based on similar interests evidenced by POAP ownership. The application uses Arbitrum Stylus for smart contract development, leveraging Rust for improved performance and security.
 
-This repository contains the smart contracts for the MintPraMim platform, handling user registration, POAP verification, and economic incentives through a boost system.
-
-## Technical Stack
-
-- **Blockchain**: Arbitrum (Stylus VM)
-- **Smart Contract Language**: Rust
-- **Stylus SDK Version**: 0.6.0
-- **Dependencies**: Alloy Primitives (0.7.6), Alloy Sol Types (0.7.6)
-
 ## Smart Contract Architecture
 
 The system consists of three main contracts that work together:
-
-1. **MainContract**: Central contract that coordinates user registration and interactions
-2. **POAPVerifier**: Handles verification of POAP ownership
-3. **BoostManager**: Manages the economic incentive system for profile visibility
 
 ```
              ┌───────────────────┐
@@ -38,6 +25,13 @@ The system consists of three main contracts that work together:
 │                    │    │                    │
 └────────────────────┘    └────────────────────┘
 ```
+
+## Technical Stack
+
+- **Blockchain**: Arbitrum (Stylus VM)
+- **Smart Contract Language**: Rust
+- **Stylus SDK Version**: 0.6.0
+- **Dependencies**: Alloy Primitives (0.7.6), Alloy Sol Types (0.7.6)
 
 ## Contract Details
 
@@ -208,14 +202,3 @@ For more thorough testing, deploy to a local testnet or Arbitrum Sepolia testnet
 5. Users can purchase boosts through BoostManager to increase their visibility
 6. Backend system uses verified POAPs and boost status to calculate matches
 7. Matches are recorded on-chain through MainContract
-
-## Important Notes
-
-- The POAPVerifier currently uses a mock implementation for POAP verification. In production, this should be replaced with actual verification through POAP's API or cross-chain communication.
-- Ensure proper security audits before deploying to mainnet.
-- Boost durations and prices should be calibrated based on testing and user feedback.
-
-## License
-
-[MIT License](LICENSE)
-

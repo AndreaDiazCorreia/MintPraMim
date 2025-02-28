@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { X, Heart, Star, MessageCircle, Filter, Sparkles, AlertCircle } from 'lucide-react';
 import { BottomNav } from '@/components/bottom-nav';
@@ -12,7 +12,7 @@ import { Card } from '@/components/ui/card';
 import { WalletConnectButton } from '@/components/wallet-connect-button';
 import { PoapDisplay } from '@/components/poap-display';
 import { useWallet } from '@/lib/wallet';
-import TinderCard from 'react-tinder-card';
+import TinderCard, { API as TinderCardAPI } from 'react-tinder-card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
 export default function ExplorePage() {
@@ -22,6 +22,10 @@ export default function ExplorePage() {
   const [ageRange, setAgeRange] = useState([18, 40]);
   const [showVerifiedOnly, setShowVerifiedOnly] = useState(false);
   const [poapDialogOpen, setPoapDialogOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  
+  // Create refs for TinderCards to access their API methods
+  const cardRefs = useRef<any[]>([]);
   
   // Fetch POAPs and matches when wallet is connected
   useEffect(() => {
@@ -34,8 +38,23 @@ export default function ExplorePage() {
     console.log('removing: ' + nameToDelete + ' to the ' + direction);
     setLastDirection(direction);
     
-    // In a real app, this would handle the match logic
-    if (direction === 'right') {
+    // Add visual feedback for the buttons
+    if (direction === 'left') {
+      document.getElementById('dislike-button')?.classList.add('animate-pulse', 'bg-red-50');
+      setTimeout(() => {
+        document.getElementById('dislike-button')?.classList.remove('animate-pulse', 'bg-red-50');
+      }, 300);
+    } else if (direction === 'up') {
+      document.getElementById('superlike-button')?.classList.add('animate-pulse', 'bg-blue-50');
+      setTimeout(() => {
+        document.getElementById('superlike-button')?.classList.remove('animate-pulse', 'bg-blue-50');
+      }, 300);
+    } else if (direction === 'right') {
+      document.getElementById('like-button')?.classList.add('animate-pulse', 'bg-purple-50');
+      setTimeout(() => {
+        document.getElementById('like-button')?.classList.remove('animate-pulse', 'bg-purple-50');
+      }, 300);
+      
       // Simulate a match with 30% probability
       if (Math.random() < 0.3) {
         // Show match animation
@@ -55,6 +74,63 @@ export default function ExplorePage() {
   const usersToDisplay = address && matchingUsers.length > 0 
     ? matchingUsers 
     : [];
+  
+  // Initialize card refs when users change
+  useEffect(() => {
+    if (usersToDisplay.length > 0) {
+      cardRefs.current = Array(usersToDisplay.length).fill(0).map((_, i) => cardRefs.current[i] || null);
+      setCurrentIndex(0);
+    }
+  }, [usersToDisplay.length]);
+    
+  // For buttons to manually control swipe
+  const handleManualSwipe = (direction: string) => {
+    if (usersToDisplay.length > 0 && currentIndex < usersToDisplay.length) {
+      // Get the current card and user
+      const currentUser = usersToDisplay[currentIndex];
+      
+      const cardToSwipe = cardRefs.current[currentIndex];
+      
+      if (cardToSwipe) {
+        // Apply animation class based on direction
+        const card = document.querySelector('.swipe-card');
+        if (card) {
+          if (direction === 'left') {
+            card.classList.add('swipe-left-animation');
+          } else if (direction === 'right') {
+            card.classList.add('swipe-right-animation');
+          } else if (direction === 'up') {
+            card.classList.add('swipe-up-animation');
+          }
+          
+          // Wait for animation to complete before removing card
+          setTimeout(() => {
+            cardToSwipe.swipe(direction);
+          }, 300);
+        } else {
+          // Fallback if no card element found
+          cardToSwipe.swipe(direction);
+        }
+        
+        // Visual feedback for button
+        const buttonMap: Record<string, string> = {
+          'left': 'dislike-button',
+          'up': 'superlike-button',
+          'right': 'like-button'
+        };
+        
+        const button = document.getElementById(buttonMap[direction]);
+        if (button) {
+          button.classList.add('scale-110', 'shadow-lg');
+          setTimeout(() => {
+            button.classList.remove('scale-110', 'shadow-lg');
+          }, 200);
+        }
+      } else {
+        console.log('No card to swipe');
+      }
+    }
+  };
   
   return (
     <main className="min-h-screen pb-20">
@@ -160,10 +236,15 @@ export default function ExplorePage() {
         {/* Swipe Cards */}
         <div className="swipe-card-container h-[500px]">
           {usersToDisplay.length > 0 ? (
-            usersToDisplay.map((user) => (
+            // Only render the current card for better control
+            usersToDisplay.slice(currentIndex, currentIndex + 1).map((user, index) => (
               <TinderCard
                 key={user.id}
-                onSwipe={(dir) => swiped(dir, user.name)}
+                ref={(element) => cardRefs.current[currentIndex] = element}
+                onSwipe={(dir) => {
+                  swiped(dir, user.name);
+                  setCurrentIndex(prevIndex => prevIndex + 1);
+                }}
                 onCardLeftScreen={() => outOfFrame(user.name)}
                 className="swipe-card"
               >
@@ -173,13 +254,13 @@ export default function ExplorePage() {
                     style={{ backgroundImage: `url(${user.image})` }}
                   />
                   
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/80 to-transparent z-10" />
                   
-                  <div className="absolute top-4 right-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-semibold shadow-lg z-20">
+                  <div className="absolute bottom-4 right-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-semibold shadow-lg z-20">
                     {user.compatibility}% Match
                   </div>
                   
-                  <div className="absolute bottom-0 left-0 right-0 p-6 z-20 text-white">
+                  <div className="absolute top-0 left-0 right-0 p-6 z-20 text-white">
                     <h2 className="text-2xl font-bold">{user.name}, {user.age}</h2>
                     <p className="text-white/80 mb-3">{user.bio}</p>
                     
@@ -214,27 +295,39 @@ export default function ExplorePage() {
         {usersToDisplay.length > 0 && (
           <div className="flex justify-center gap-4 mt-8">
             <Button 
-              size="lg" 
+              id="dislike-button"
+              size="icon"
               variant="outline" 
-              className="rounded-full h-16 w-16 bg-white shadow-md border-gray-200"
+              className="rounded-full h-16 w-16 bg-white shadow-md border-gray-200 transition-all hover:bg-red-50 p-0 flex items-center justify-center"
+              onClick={() => handleManualSwipe('left')}
+              aria-label="Dislike"
             >
               <X className="h-8 w-8 text-red-500" />
+              <span className="sr-only">Dislike</span>
             </Button>
             
             <Button 
-              size="lg" 
+              id="superlike-button"
+              size="icon"
               variant="outline" 
-              className="rounded-full h-16 w-16 bg-white shadow-md border-gray-200"
+              className="rounded-full h-16 w-16 bg-white shadow-md border-gray-200 transition-all hover:bg-blue-50 p-0 flex items-center justify-center"
+              onClick={() => handleManualSwipe('up')}
+              aria-label="Superlike"
             >
               <Star className="h-8 w-8 text-blue-500" />
+              <span className="sr-only">Superlike</span>
             </Button>
             
             <Button 
-              size="lg" 
+              id="like-button"
+              size="icon"
               variant="outline" 
-              className="rounded-full h-16 w-16 bg-white shadow-md border-gray-200"
+              className="rounded-full h-16 w-16 bg-white shadow-md border-gray-200 transition-all hover:bg-purple-50 p-0 flex items-center justify-center"
+              onClick={() => handleManualSwipe('right')}
+              aria-label="Like"
             >
               <Heart className="h-8 w-8 text-primary" />
+              <span className="sr-only">Like</span>
             </Button>
           </div>
         )}

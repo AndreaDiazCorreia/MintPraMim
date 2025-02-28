@@ -186,8 +186,7 @@
 
 /* Compatibility badge */
 .compatibility-badge {
-  @apply absolute top-4 right-4 bg-white dark:bg-gray-900 rounded-full w-14 h-14 flex items-center justify-center text-lg font-bold shadow-md z-10;
-  border: 2px solid theme('colors.primary.DEFAULT');
+  @apply absolute top-4 right-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-semibold shadow-lg z-20;
 }
 
 /* NFT badge styles */

@@ -1,8 +1,24 @@
-import Link from 'next/link';
+"use client";
+
 import { Button } from '@/components/ui/button';
-import { Sparkles, Heart, Wallet } from 'lucide-react';
+import { Sparkles, Heart } from 'lucide-react';
+import { WalletConnectButton } from '@/components/wallet-connect-button';
+import { useWallet } from '@/lib/wallet';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 export default function Home() {
+  const { address, isConnected } = useWallet();
+  const router = useRouter();
+  
+  // Redirect to explore page if wallet is connected
+  useEffect(() => {
+    if (isConnected && address) {
+      router.push('/explore');
+    }
+  }, [isConnected, address, router]);
+  
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-6 relative">
       {/* Decorative elements */}
@@ -18,7 +34,7 @@ export default function Home() {
           MintPraMim
         </h1>
         <p className="text-muted-foreground max-w-md mx-auto">
-          Connect with people who share your interests and create meaningful connections
+          Connect with people who share your POAP NFTs and create meaningful connections
         </p>
       </div>
       
@@ -27,25 +43,83 @@ export default function Home() {
         <div className="space-y-6">
           <div className="text-center mb-8">
             <h2 className="text-2xl font-semibold text-gray-800 mb-2">Welcome</h2>
-            <p className="text-muted-foreground">Connect your wallet to get started</p>
+            <p className="text-muted-foreground">Connect your wallet to find matches based on your POAPs</p>
           </div>
           
-          <Button className="w-full py-6 text-lg rounded-xl bg-primary hover:bg-primary/90 flex items-center justify-center gap-2">
-            <Wallet className="w-5 h-5 mr-1" />
-            Connect Wallet
-          </Button>
-          
-          <div className="relative flex items-center justify-center my-6">
-            <div className="border-t border-gray-200 flex-grow"></div>
-            <span className="mx-4 text-sm text-muted-foreground">or</span>
-            <div className="border-t border-gray-200 flex-grow"></div>
+          <div className="flex justify-center">
+            <ConnectButton.Custom>
+              {({
+                account,
+                chain,
+                openAccountModal,
+                openChainModal,
+                openConnectModal,
+                authenticationStatus,
+                mounted,
+              }) => {
+                const ready = mounted && authenticationStatus !== 'loading';
+                const connected =
+                  ready &&
+                  account &&
+                  chain &&
+                  (!authenticationStatus ||
+                    authenticationStatus === 'authenticated');
+
+                return (
+                  <div
+                    {...(!ready && {
+                      'aria-hidden': true,
+                      'style': {
+                        opacity: 0,
+                        pointerEvents: 'none',
+                        userSelect: 'none',
+                      },
+                    })}
+                    className="w-full"
+                  >
+                    {(() => {
+                      if (!connected) {
+                        return (
+                          <Button
+                            onClick={openConnectModal}
+                            className="w-full py-6 text-lg rounded-xl bg-primary hover:bg-primary/90 flex items-center justify-center gap-2"
+                          >
+                            <Sparkles className="w-5 h-5" />
+                            <span>Connect Wallet</span>
+                          </Button>
+                        );
+                      }
+
+                      if (chain.unsupported) {
+                        return (
+                          <Button 
+                            onClick={openChainModal} 
+                            className="w-full py-6 text-lg rounded-xl bg-destructive hover:bg-destructive/90"
+                          >
+                            Switch to Arbitrum
+                          </Button>
+                        );
+                      }
+
+                      return (
+                        <div className="flex flex-col gap-3 w-full">
+                          <Button
+                            onClick={openAccountModal}
+                            className="w-full py-6 text-lg rounded-xl bg-primary hover:bg-primary/90"
+                          >
+                            {account.displayName}
+                          </Button>
+                          <div className="text-center text-sm">
+                            <span>Connected to {chain.name}</span>
+                          </div>
+                        </div>
+                      );
+                    })()}
+                  </div>
+                );
+              }}
+            </ConnectButton.Custom>
           </div>
-          
-          <Link href="/explore" className="block w-full">
-            <Button variant="outline" className="w-full py-6 text-lg rounded-xl border-purple-200 hover:bg-purple-50 text-primary">
-              Continue as Guest
-            </Button>
-          </Link>
         </div>
         
         <div className="mt-8 text-center">
@@ -62,16 +136,16 @@ export default function Home() {
       {/* Stats at bottom */}
       <div className="mt-12 flex justify-center gap-8 text-center">
         <div>
-          <p className="text-2xl font-bold text-primary">10k+</p>
-          <p className="text-sm text-muted-foreground">Users</p>
+          <p className="text-2xl font-bold text-primary">100+</p>
+          <p className="text-sm text-muted-foreground">POAPs Supported</p>
         </div>
         <div>
-          <p className="text-2xl font-bold text-primary">5k+</p>
+          <p className="text-2xl font-bold text-primary">500+</p>
           <p className="text-sm text-muted-foreground">Matches</p>
         </div>
         <div>
           <p className="text-2xl font-bold text-primary">1k+</p>
-          <p className="text-sm text-muted-foreground">NFTs Minted</p>
+          <p className="text-sm text-muted-foreground">Connections Made</p>
         </div>
       </div>
       
